@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Asset Management System</title>
+</head>
+<body>
+<h1> Asset Management System </h1>
+<h3>Add Assets</h3>
+<form id="assetForm">
+<label>Asset Type: </label> <input placeholder="Type" name="type" required />
+<br>
+<label>Brand: </label> <input placeholder="Brand" name="brand" />
+<br>
+<label>Model: </label> <input placeholder="Model" name="model" />
+<br>
+<label>Serial number: </label><input placeholder="Serial #" name="serial_number" required />
+<br>
+<label>Date: </label><input type="date" name="purchase_date" />
+<br>
+<label>Status of Asset: </label><select name="status">
+<option value="available">Available</option>
+<option value="assigned">Assigned</option>
+<option value="maintenance">Maintenance</option>
+<option value="damaged">Damaged</option>
+<option value="retired">Retired</option>
+</select>
+<button type="submit">Add</button>
+</form>
+<!--<ul id="assetList"></ul>
+<script src="script.js"></script>-->
+</body>
+</html>
+
