@@ -20,6 +20,10 @@ db.run(`CREATE TABLE IF NOT EXISTS assets (
   status TEXT
 )`);
 
+app.get('/', (req, res) => {
+  res.send('Welcome to the Sparkout Tech Info System API');
+});
+
 // GET all assets
 app.get('/assets', (req, res) => {
   db.all("SELECT * FROM assets", (err, rows) => {
