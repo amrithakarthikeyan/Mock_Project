@@ -1,33 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Asset Management System</title>
+  <title>Asset Management System</title>
 </head>
 <body>
-<h1> Asset Management System </h1>
-<h3>Add Assets</h3>
-<form id="assetForm">
-<label>Asset Type: </label> <input placeholder="Type" name="type" required />
-<br>
-<label>Brand: </label> <input placeholder="Brand" name="brand" />
-<br>
-<label>Model: </label> <input placeholder="Model" name="model" />
-<br>
-<label>Serial number: </label><input placeholder="Serial #" name="serial_number" required />
-<br>
-<label>Date: </label><input type="date" name="purchase_date" />
-<br>
-<label>Status of Asset: </label><select name="status">
-<option value="available">Available</option>
-<option value="assigned">Assigned</option>
-<option value="maintenance">Maintenance</option>
-<option value="damaged">Damaged</option>
-<option value="retired">Retired</option>
-</select>
-<button type="submit">Add</button>
-</form>
-<!--<ul id="assetList"></ul>
-<script src="script.js"></script>-->
+  <h1>Asset Management System</h1>
+
+  <h3>Add / Update Asset</h3>
+  <form id="assetForm">
+    <input type="hidden" name="id" />
+    <label>Asset Type:</label> <input name="type" required />
+    <br>
+    <label>Brand:</label> <input name="brand" />
+    <br>
+    <label>Model:</label> <input name="model" />
+    <br>
+    <label>Serial number:</label> <input name="serial_number" required />
+    <br>
+    <label>Date:</label> <input type="date" name="purchase_date" />
+    <br>
+    <label>Status of Asset:</label>
+    <select name="status">
+      <option value="available">Available</option>
+      <option value="assigned">Assigned</option>
+      <option value="maintenance">Maintenance</option>
+      <option value="damaged">Damaged</option>
+      <option value="retired">Retired</option>
+    </select>
+    <br>
+    <button type="submit">Save</button>
+    <button type="button" id="cancelEdit">Cancel</button>
+  </form>
+
+  <h3>Assets List</h3>
+  <table border="1" id="assetTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Serial</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script src="script.js"></script>
 </body>
 </html>
-
