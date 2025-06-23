@@ -1,6 +1,6 @@
 CREATE TABLE "Assets" (
 	"Asset-ID"	INTEGER,
-	"Asset-Type"	TEXT NOT NULL
+	"Asset-Type"	TEXT NOT NULL,
 	"Brand"	TEXT,
 	"Model"	TEXT,
 	"Serial-Number"	INTEGER,
@@ -17,7 +17,7 @@ CREATE TABLE "Assignment" (
 	"Return_Date"	TEXT,
 	"Condition_on_return"	TEXT,
 	FOREIGN KEY("Asset-ID") REFERENCES "Assets"("Asset-ID") ,
-	FOREIGN KEY("Employee_ID") "Employees"("Employee-ID")
+	FOREIGN KEY("Employee_ID") REFERENCES "Employees"("Employee-ID")
 );
 
 CREATE TABLE "Employees" (
