@@ -6,7 +6,7 @@ const sqlite3 = require('sqlite3').verbose();
 const app = express();
 const PORT = 3000;
 
-app.use(cors({ origin: 'https://opulent-barnacle-q76gw546vqvpfj59-3000.app.github.dev/' }));
+app.use(cors());
 
 app.use(express.json());
 
