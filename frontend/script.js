@@ -38,8 +38,8 @@ form.addEventListener('submit', function(e) {
   const asset = Object.fromEntries(formData.entries());
   console.log("Data being sent:", asset);
 
-  const method = asset.id ? 'PUT' : 'POST';
-  const url = asset["Asset-ID"] ? `${API_URL}${asset["Asset-ID"]}` : API_URL;
+  const method = asset["Asset-ID"] ? 'PUT' : 'POST';
+  const url = asset["Asset-ID"] ? `${API_URL}assets/${asset["Asset-ID"]}` : `${API_URL}assets`;
 
   fetch(url, {
     method,
@@ -61,7 +61,7 @@ form.addEventListener('submit', function(e) {
 });
 
 function editAsset(id) {
-  fetch(`${API_URL}${id}`)
+  fetch(`${API_URL}assets/${id}`)
     .then(res => res.json())
     .then(asset => {
       if (asset) {
