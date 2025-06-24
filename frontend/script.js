@@ -15,14 +15,18 @@ function loadAssets() {
       data.forEach(asset => {
         const row = document.createElement('tr');
         row.innerHTML = `
-          <td>${asset.id}</td>
-          <td>${asset.type}</td>
-          <td>${asset.brand}</td>
-          <td>${asset.model}</td>
-          <td>${asset.serial_number}</td>
-          <td>${asset.purchase_date}</td>
-          <td>${asset.status}</td>
+          <td>${asset.Asset-ID}</td>
+          <td>${asset.Asset-Type}</td>
+          <td>${asset.Brand}</td>
+          <td>${asset.Model}</td>
+          <td>${asset.Serial-Number}</td>
+          <td>${asset.Purchase_Date}</td>
+          <td>${asset.Status}</td>
           <td>
+
+          
+
+          
             <button onclick="editAsset(${asset.id})">Edit</button>
             <button onclick="deleteAsset(${asset.id})">Delete</button>
           </td>`;
