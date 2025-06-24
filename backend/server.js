@@ -64,6 +64,13 @@ app.delete('/assets/:id', (req, res) => {
   });
 });
 
+app.get('/assets/:id', (req, res) => {
+  db.get("SELECT * FROM assets WHERE id = ?", [req.params.id], (err, row) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json(row);
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
