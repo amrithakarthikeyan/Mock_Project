@@ -3,6 +3,8 @@ const tableBody = document.querySelector('#assetTable tbody');
 const cancelEditBtn = document.getElementById('cancelEdit');
 
 const API_URL = 'http://localhost:3000/assets';
+console.log("Script loaded");
+
 
 function loadAssets() {
   fetch(API_URL)
@@ -30,8 +32,10 @@ function loadAssets() {
 
 form.addEventListener('submit', function(e) {
   e.preventDefault();
+  console.log("Form submitted");
   const formData = new FormData(form);
   const asset = Object.fromEntries(formData.entries());
+  console.log("Data being sent:", asset); 
 
   const method = asset.id ? 'PUT' : 'POST';
   const url = asset.id ? `${API_URL}/${asset.id}` : API_URL;
