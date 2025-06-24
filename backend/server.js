@@ -11,13 +11,14 @@ const db = new sqlite3.Database('./database.db');
 
 // CREATE table if not exists (you can also load from assetsdata.sql separately)
 db.run(`CREATE TABLE IF NOT EXISTS assets (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  type TEXT,
-  brand TEXT,
-  model TEXT,
-  serial_number TEXT,
-  purchase_date TEXT,
-  status TEXT
+"Asset-ID"	INTEGER,
+	"Asset-Type"	TEXT NOT NULL,
+	"Brand"	TEXT,
+	"Model"	TEXT,
+	"Serial-Number"	INTEGER,
+	"Purchase_Date"	TEXT,
+	"Status"	TEXT,
+	PRIMARY KEY("Asset-ID")
 )`);
 
 app.get('/', (req, res) => {
