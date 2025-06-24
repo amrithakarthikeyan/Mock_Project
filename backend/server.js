@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-app.use(cors({ origin: 'https://opulent-barnacle-q76gw546vqvpfj59-8080.app.github.dev/' }));
+app.use(cors({ origin: 'https://opulent-barnacle-q76gw546vqvpfj59-3000.app.github.dev/' }));
 
 const sqlite3 = require('sqlite3').verbose();
 const app = express();
