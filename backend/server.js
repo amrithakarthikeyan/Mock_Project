@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+app.use(cors({ origin: 'https://<CODESPACE_NAME>-8080.app.github.dev' }));
+
 const sqlite3 = require('sqlite3').verbose();
 const app = express();
 const PORT = 3000;
