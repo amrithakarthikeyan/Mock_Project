@@ -35,7 +35,18 @@ form.addEventListener('submit', function(e) {
   console.log("Form submitted");
 
   const formData = new FormData(form);
-  const asset = Object.fromEntries(formData.entries());
+  const formDataObj = Object.fromEntries(formData.entries());
+
+const asset = {
+  "Asset-ID": formDataObj.id ? parseInt(formDataObj.id) : undefined,
+  "Asset-Type": formDataObj.type,
+  "Brand": formDataObj.brand,
+  "Model": formDataObj.model,
+  "Serial-Number": formDataObj.serial_number ? parseInt(formDataObj.serial_number) : undefined,
+  "Purchase_Date": formDataObj.purchase_date,
+  "Status": formDataObj.status
+};
+
   console.log("Data being sent:", asset);
 
   const method = asset["Asset-ID"] ? 'PUT' : 'POST';
@@ -78,7 +89,7 @@ function editAsset(id) {
 
 function deleteAsset(id) {
   if (confirm("Are you sure you want to delete this asset?")) {
-    fetch(`${API_URL}${id}`, { method: 'DELETE' })
+    fetch(`${API_URL}assets/${id}`, { method: 'DELETE' })
       .then(() => loadAssets());
   }
 }
