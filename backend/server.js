@@ -30,17 +30,46 @@ app.get('/', (req, res) => {
 
 // GET all assets
 app.get('/assets', (req, res) => {
-  db.all("SELECT * FROM assets", (err, rows) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json(rows);
-  });
+  db.all(`SELECT 
+    "Asset-ID" AS id,
+    "Asset-Type" AS type,
+    "Brand" AS brand,
+    "Model" AS model,
+    "Serial-Number" AS serial_number,
+    "Purchase_Date" AS purchase_date,
+    "Status" AS status 
+    FROM Assets`, 
+    (err, rows) => {
+      if (err) return res.status(500).json({ error: err.message });
+      res.json(rows);
+    });
+});
+
+
+//Get single asset
+app.get('/assets/:id', (req, res) => {
+  db.get(`SELECT 
+    "Asset-ID" AS id,
+    "Asset-Type" AS type,
+    "Brand" AS brand,
+    "Model" AS model,
+    "Serial-Number" AS serial_number,
+    "Purchase_Date" AS purchase_date,
+    "Status" AS status 
+    FROM Assets WHERE "Asset-ID" = ?`, 
+    [req.params.id], 
+    (err, row) => {
+      if (err) return res.status(500).json({ error: err.message });
+      res.json(row);
+    });
 });
 
 // ADD asset
 app.post('/assets', (req, res) => {
   const { type, brand, model, serial_number, purchase_date, status } = req.body;
-  db.run(`INSERT INTO assets ("Asset-Type", "Brand", "Model", "Serial-Number", "Purchase_Date", "Status")
-          VALUES (?, ?, ?, ?, ?, ?)`,
+  db.run(`INSERT INTO Assets (
+    "Asset-Type", "Brand", "Model", "Serial-Number", "Purchase_Date", "Status")
+    VALUES (?, ?, ?, ?, ?, ?)`,
     [type, brand, model, serial_number, purchase_date, status],
     function(err) {
       if (err) return res.status(500).json({ error: err.message });
@@ -51,7 +80,14 @@ app.post('/assets', (req, res) => {
 // UPDATE asset
 app.put('/assets/:id', (req, res) => {
   const { type, brand, model, serial_number, purchase_date, status } = req.body;
-  db.run(`UPDATE assets SET type=?, brand=?, model=?, serial_number=?, purchase_date=?, status=? WHERE id=?`,
+  db.run(`UPDATE Assets SET 
+    "Asset-Type" = ?, 
+    "Brand" = ?, 
+    "Model" = ?, 
+    "Serial-Number" = ?, 
+    "Purchase_Date" = ?, 
+    "Status" = ? 
+    WHERE "Asset-ID" = ?`,
     [type, brand, model, serial_number, purchase_date, status, req.params.id],
     function(err) {
       if (err) return res.status(500).json({ error: err.message });
@@ -61,10 +97,12 @@ app.put('/assets/:id', (req, res) => {
 
 // DELETE asset
 app.delete('/assets/:id', (req, res) => {
-  db.run(`DELETE FROM assets WHERE id=?`, [req.params.id], function(err) {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json({ deleted: this.changes });
-  });
+  db.run(`DELETE FROM Assets WHERE "Asset-ID" = ?`, 
+    [req.params.id], 
+    function(err) {
+      if (err) return res.status(500).json({ error: err.message });
+      res.json({ deleted: this.changes });
+    });
 });
 
 app.get('/assets/:id', (req, res) => {
