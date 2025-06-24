@@ -8,29 +8,41 @@
 
   <h3>Add / Update Asset</h3>
   <form id="assetForm">
-    <input type="hidden" name="Asset-ID" />
-    <label>Asset Type:</label> <input name="Asset-Type" required />
-    <br>
-    <label>Brand:</label> <input name="Brand" />
-    <br>
-    <label>Model:</label> <input name="Model" />
-    <br>
-    <label>Serial number:</label> <input name="Serial_Number" required />
-    <br>
-    <label>Date:</label> <input type="date" name="Purchase_Date" />
-    <br>
-    <label>Status of Asset:</label>
-    <select name="Status">
-      <option value="available">Available</option>
-      <option value="assigned">Assigned</option>
-      <option value="maintenance">Maintenance</option>
-      <option value="damaged">Damaged</option>
-      <option value="retired">Retired</option>
-    </select>
-    <br>
-    <button type="submit">Save</button>
-    <button type="button" id="cancelEdit">Cancel</button>
-  </form>
+  <input type="hidden" name="Asset-ID" id="id" />
+
+  <label>Asset Type:</label>
+  <input name="Asset-Type" id="type" required />
+  <br>
+
+  <label>Brand:</label>
+  <input name="Brand" id="brand" />
+  <br>
+
+  <label>Model:</label>
+  <input name="Model" id="model" />
+  <br>
+
+  <label>Serial number:</label>
+  <input name="Serial-Number" id="serial_number" required />
+  <br>
+
+  <label>Date:</label>
+  <input type="date" name="Purchase_Date" id="purchase_date" />
+  <br>
+
+  <label>Status of Asset:</label>
+  <select name="Status" id="status">
+    <option value="available">Available</option>
+    <option value="assigned">Assigned</option>
+    <option value="maintenance">Maintenance</option>
+    <option value="damaged">Damaged</option>
+    <option value="retired">Retired</option>
+  </select>
+  <br>
+
+  <button type="submit">Save</button>
+  <button type="button" id="cancelEdit">Cancel</button>
+</form>
 
   <h3>Assets List</h3>
   <table border="1" id="assetTable">
