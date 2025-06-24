@@ -38,7 +38,7 @@ app.get('/assets', (req, res) => {
 // ADD asset
 app.post('/assets', (req, res) => {
   const { type, brand, model, serial_number, purchase_date, status } = req.body;
-  db.run(`INSERT INTO assets (type, brand, model, serial_number, purchase_date, status)
+  db.run(`INSERT INTO assets ("Asset-Type", "Brand", "Model", "Serial-Number", "Purchase_Date", "Status")
           VALUES (?, ?, ?, ?, ?, ?)`,
     [type, brand, model, serial_number, purchase_date, status],
     function(err) {
@@ -73,6 +73,6 @@ app.get('/assets/:id', (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
