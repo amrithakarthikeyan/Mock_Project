@@ -22,8 +22,8 @@ function loadAssets() {
           <td>${asset.Purchase_Date}</td>
           <td>${asset.Status}</td>
           <td>
-            <button onclick="editAsset(${asset.id})">Edit</button>
-            <button onclick="deleteAsset(${asset.id})">Delete</button>
+            <button onclick="editAsset(${asset['Asset-ID']})">Edit</button>
+            <button onclick="deleteAsset(${asset['Asset-ID']})">Delete</button>
           </td>`;
         tableBody.appendChild(row);
       });
@@ -39,7 +39,7 @@ form.addEventListener('submit', function(e) {
   console.log("Data being sent:", asset);
 
   const method = asset.id ? 'PUT' : 'POST';
-  const url = asset.id ? `${API_URL}${asset.id}` : API_URL;
+  const url = asset["Asset-ID"] ? `${API_URL}${asset["Asset-ID"]}` : API_URL;
 
   fetch(url, {
     method,
