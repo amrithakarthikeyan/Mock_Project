@@ -7,7 +7,7 @@ const API_URL = 'https://opulent-barnacle-q76gw546vqvpfj59-8080.app.github.dev/'
 console.log("Script loaded");
 
 function loadAssets() {
-  fetch(API_URL)
+  fetch(API_URL + 'assets')
     .then(res => res.json())
     .then(data => {
       tableBody.innerHTML = '';
