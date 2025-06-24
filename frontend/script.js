@@ -2,7 +2,7 @@ const form = document.getElementById('assetForm');
 const tableBody = document.querySelector('#assetTable tbody');
 const cancelEditBtn = document.getElementById('cancelEdit');
 
-const API_URL = 'https://opulent-barnacle-q76gw546vqvpfj59-8080.app.github.dev/';
+const API_URL = 'const API_URL = 'https://opulent-barnacle-q76gw546vqvpfj59-3000.app.github.dev/';
 
 console.log("Script loaded");
 
