@@ -6,7 +6,9 @@ const app = express();
 const PORT = 3000;
 
 app.use(cors({
-  origin: 'https://opulent-barnacle-q76gw546vqvpfj59-8080.app.github.dev'
+  origin: 'https://opulent-barnacle-q76gw546vqvpfj59-8080.app.github.dev',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json());
