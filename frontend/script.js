@@ -38,14 +38,14 @@ form.addEventListener('submit', function (e) {
   const formDataObj = Object.fromEntries(formData.entries());
 
   const asset = {
-    "Asset-ID": formDataObj.id ? parseInt(formDataObj.id) : undefined,
-    "Asset-Type": formDataObj.type,
-    "Brand": formDataObj.brand,
-    "Model": formDataObj.model,
-    "Serial-Number": formDataObj.serial_number ? parseInt(formDataObj.serial_number) : undefined,
-    "Purchase_Date": formDataObj.purchase_date,
-    "Status": formDataObj.status
-  };
+  "Asset-ID": formDataObj["Asset-ID"] ? parseInt(formDataObj["Asset-ID"]) : undefined,
+  "Asset-Type": formDataObj["Asset-Type"],
+  "Brand": formDataObj["Brand"],
+  "Model": formDataObj["Model"],
+  "Serial-Number": formDataObj["Serial-Number"] ? parseInt(formDataObj["Serial-Number"]) : undefined,
+  "Purchase_Date": formDataObj["Purchase_Date"],
+  "Status": formDataObj["Status"]
+};
 
   console.log("Data being sent:", asset);
 
@@ -86,6 +86,7 @@ function editAsset(id) {
       }
     });
 }
+
 
 function deleteAsset(id) {
   if (confirm("Are you sure you want to delete this asset?")) {

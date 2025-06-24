@@ -31,13 +31,13 @@ app.get('/', (req, res) => {
 // GET all assets
 app.get('/assets', (req, res) => {
   db.all(`SELECT 
-    "Asset-ID" AS id,
-    "Asset-Type" AS type,
-    "Brand" AS brand,
-    "Model" AS model,
-    "Serial-Number" AS serial_number,
-    "Purchase_Date" AS purchase_date,
-    "Status" AS status 
+    "Asset-ID" ,
+    "Asset-Type",
+    "Brand" ,
+    "Model" ,
+    "Serial-Number" ,
+    "Purchase_Date" ,
+    "Status"  
     FROM Assets`, 
     (err, rows) => {
       if (err) return res.status(500).json({ error: err.message });
@@ -49,13 +49,13 @@ app.get('/assets', (req, res) => {
 //Get single asset
 app.get('/assets/:id', (req, res) => {
   db.get(`SELECT 
-    "Asset-ID" AS id,
-    "Asset-Type" AS type,
-    "Brand" AS brand,
-    "Model" AS model,
-    "Serial-Number" AS serial_number,
-    "Purchase_Date" AS purchase_date,
-    "Status" AS status 
+    "Asset-ID",
+    "Asset-Type",
+    "Brand",
+    "Model",
+    "Serial-Number",
+    "Purchase_Date",
+    "Status"
     FROM Assets WHERE "Asset-ID" = ?`, 
     [req.params.id], 
     (err, row) => {
