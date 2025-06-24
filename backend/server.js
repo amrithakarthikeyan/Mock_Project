@@ -1,27 +1,23 @@
 const express = require('express');
 const cors = require('cors');
 
-
 const sqlite3 = require('sqlite3').verbose();
 const app = express();
 const PORT = 3000;
 
 app.use(cors());
-
 app.use(express.json());
 
 const db = new sqlite3.Database('./database.db');
 
-// CREATE table if not exists (you can also load from assetsdata.sql separately)
 db.run(`CREATE TABLE IF NOT EXISTS assets (
-"Asset-ID"	INTEGER,
-	"Asset-Type"	TEXT NOT NULL,
-	"Brand"	TEXT,
-	"Model"	TEXT,
-	"Serial-Number"	INTEGER,
-	"Purchase_Date"	TEXT,
-	"Status"	TEXT,
-	PRIMARY KEY("Asset-ID")
+  "Asset-ID" INTEGER PRIMARY KEY,
+  "Asset-Type" TEXT NOT NULL,
+  "Brand" TEXT,
+  "Model" TEXT,
+  "Serial-Number" INTEGER,
+  "Purchase_Date" TEXT,
+  "Status" TEXT
 )`);
 
 app.get('/', (req, res) => {
@@ -31,22 +27,21 @@ app.get('/', (req, res) => {
 // GET all assets
 app.get('/assets', (req, res) => {
   db.all(`SELECT 
-    "Asset-ID" ,
+    "Asset-ID",
     "Asset-Type",
-    "Brand" ,
-    "Model" ,
-    "Serial-Number" ,
-    "Purchase_Date" ,
-    "Status"  
-    FROM Assets`, 
+    "Brand",
+    "Model",
+    "Serial-Number",
+    "Purchase_Date",
+    "Status"
+    FROM assets`, 
     (err, rows) => {
       if (err) return res.status(500).json({ error: err.message });
       res.json(rows);
     });
 });
 
-
-//Get single asset
+// GET single asset
 app.get('/assets/:id', (req, res) => {
   db.get(`SELECT 
     "Asset-ID",
@@ -56,7 +51,7 @@ app.get('/assets/:id', (req, res) => {
     "Serial-Number",
     "Purchase_Date",
     "Status"
-    FROM Assets WHERE "Asset-ID" = ?`, 
+    FROM assets WHERE "Asset-ID" = ?`, 
     [req.params.id], 
     (err, row) => {
       if (err) return res.status(500).json({ error: err.message });
@@ -66,11 +61,11 @@ app.get('/assets/:id', (req, res) => {
 
 // ADD asset
 app.post('/assets', (req, res) => {
-  const { type, brand, model, serial_number, purchase_date, status } = req.body;
-  db.run(`INSERT INTO Assets (
+  const { "Asset-Type": assetType, Brand, Model, "Serial-Number": serialNumber, Purchase_Date, Status } = req.body;
+  db.run(`INSERT INTO assets (
     "Asset-Type", "Brand", "Model", "Serial-Number", "Purchase_Date", "Status")
     VALUES (?, ?, ?, ?, ?, ?)`,
-    [type, brand, model, serial_number, purchase_date, status],
+    [assetType, Brand, Model, serialNumber, Purchase_Date, Status],
     function(err) {
       if (err) return res.status(500).json({ error: err.message });
       res.json({ id: this.lastID });
@@ -79,8 +74,8 @@ app.post('/assets', (req, res) => {
 
 // UPDATE asset
 app.put('/assets/:id', (req, res) => {
-  const { type, brand, model, serial_number, purchase_date, status } = req.body;
-  db.run(`UPDATE Assets SET 
+  const { "Asset-Type": assetType, Brand, Model, "Serial-Number": serialNumber, Purchase_Date, Status } = req.body;
+  db.run(`UPDATE assets SET 
     "Asset-Type" = ?, 
     "Brand" = ?, 
     "Model" = ?, 
@@ -88,7 +83,7 @@ app.put('/assets/:id', (req, res) => {
     "Purchase_Date" = ?, 
     "Status" = ? 
     WHERE "Asset-ID" = ?`,
-    [type, brand, model, serial_number, purchase_date, status, req.params.id],
+    [assetType, Brand, Model, serialNumber, Purchase_Date, Status, req.params.id],
     function(err) {
       if (err) return res.status(500).json({ error: err.message });
       res.json({ updated: this.changes });
@@ -97,19 +92,12 @@ app.put('/assets/:id', (req, res) => {
 
 // DELETE asset
 app.delete('/assets/:id', (req, res) => {
-  db.run(`DELETE FROM Assets WHERE "Asset-ID" = ?`, 
+  db.run(`DELETE FROM assets WHERE "Asset-ID" = ?`, 
     [req.params.id], 
     function(err) {
       if (err) return res.status(500).json({ error: err.message });
       res.json({ deleted: this.changes });
     });
-});
-
-app.get('/assets/:id', (req, res) => {
-  db.get("SELECT * FROM assets WHERE id = ?", [req.params.id], (err, row) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json(row);
-  });
 });
 
 app.listen(PORT, '0.0.0.0', () => {
