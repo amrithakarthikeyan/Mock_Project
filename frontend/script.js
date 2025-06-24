@@ -53,7 +53,19 @@ form.addEventListener('submit', function(e) {
     .then(() => {
       form.reset();
       loadAssets();
-    });
+    })
+    .then(res => {
+  if (!res.ok) throw new Error("Failed to save");
+  return res.json();
+})
+.then(() => {
+  form.reset();
+  loadAssets();
+})
+.catch(err => {
+  console.error("Save error:", err);
+  alert("Failed to save asset.");
+});
 });
 
 function editAsset(id) {
