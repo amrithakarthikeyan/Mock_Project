@@ -30,22 +30,22 @@ function loadAssets() {
     });
 }
 
-form.addEventListener('submit', function(e) {
+form.addEventListener('submit', function (e) {
   e.preventDefault();
   console.log("Form submitted");
 
   const formData = new FormData(form);
   const formDataObj = Object.fromEntries(formData.entries());
 
-const asset = {
-  "Asset-ID": formDataObj.id ? parseInt(formDataObj.id) : undefined,
-  "Asset-Type": formDataObj.type,
-  "Brand": formDataObj.brand,
-  "Model": formDataObj.model,
-  "Serial-Number": formDataObj.serial_number ? parseInt(formDataObj.serial_number) : undefined,
-  "Purchase_Date": formDataObj.purchase_date,
-  "Status": formDataObj.status
-};
+  const asset = {
+    "Asset-ID": formDataObj.id ? parseInt(formDataObj.id) : undefined,
+    "Asset-Type": formDataObj.type,
+    "Brand": formDataObj.brand,
+    "Model": formDataObj.model,
+    "Serial-Number": formDataObj.serial_number ? parseInt(formDataObj.serial_number) : undefined,
+    "Purchase_Date": formDataObj.purchase_date,
+    "Status": formDataObj.status
+  };
 
   console.log("Data being sent:", asset);
 
@@ -76,13 +76,13 @@ function editAsset(id) {
     .then(res => res.json())
     .then(asset => {
       if (asset) {
-        form.id.value = asset["Asset-ID"];
-        form.type.value = asset["Asset-Type"];
-        form.brand.value = asset["Brand"];
-        form.model.value = asset["Model"];
-        form.serial_number.value = asset["Serial-Number"];
-        form.purchase_date.value = asset["Purchase_Date"];
-        form.status.value = asset["Status"];
+        form.elements["Asset-ID"].value = asset["Asset-ID"];
+        form.elements["Asset-Type"].value = asset["Asset-Type"];
+        form.elements["Brand"].value = asset["Brand"];
+        form.elements["Model"].value = asset["Model"];
+        form.elements["Serial-Number"].value = asset["Serial-Number"];
+        form.elements["Purchase_Date"].value = asset["Purchase_Date"];
+        form.elements["Status"].value = asset["Status"];
       }
     });
 }
