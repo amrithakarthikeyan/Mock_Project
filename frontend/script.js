@@ -48,10 +48,9 @@ form.addEventListener('submit', function(e) {
 });
 
 function editAsset(id) {
-  fetch(`${API_URL}`)
+  fetch(`${API_URL}/${id}`)
     .then(res => res.json())
-    .then(data => {
-      const asset = data.find(a => a.id === id);
+    .then(asset => {
       if (asset) {
         form.id.value = asset.id;
         form.type.value = asset.type;
