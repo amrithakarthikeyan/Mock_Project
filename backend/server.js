@@ -1,16 +1,16 @@
 const express = require('express');
-const cors = require('cors');
 
 const sqlite3 = require('sqlite3').verbose();
 const app = express();
 const PORT = 3000;
 
+const cors = require('cors');
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin || origin.endsWith('.app.github.dev')) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error('Blocked by CORS'));
     }
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
