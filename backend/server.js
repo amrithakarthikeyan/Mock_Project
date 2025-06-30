@@ -1,17 +1,19 @@
 const express = require('express');
-
+const cors = require('cors');
 const sqlite3 = require('sqlite3').verbose();
+
 const app = express();
 const PORT = 3000;
 
-const cors = require('cors');
+// CORS Fix: Allow all origins (for development only)
+app.use(cors({
+  origin: '*', // Allow all origins for now
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
+// Optional: handle preflight OPTIONS requests
+app.options('*', cors());
 
 app.use(express.json());
 
@@ -26,6 +28,12 @@ db.run(`CREATE TABLE IF NOT EXISTS assets (
   "Purchase_Date" TEXT,
   "Status" TEXT
 )`);
+
+// Start the server
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+});
+
 
 app.get('/', (req, res) => {
   res.send('Welcome to the Sparkout Tech Info System API');
