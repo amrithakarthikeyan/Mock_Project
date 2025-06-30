@@ -57,7 +57,7 @@ app.get('/assets/:id', (req, res) => {
 });
 
 // ADD asset
-app.post('/assets', (req, res) => {
+app.post('/assets/:id', (req, res) => {
   const { "Asset-Type": assetType, Brand, Model, "Serial-Number": serialNumber, Purchase_Date, Status } = req.body;
   db.run(`INSERT INTO assets (
     "Asset-Type", "Brand", "Model", "Serial-Number", "Purchase_Date", "Status")
@@ -97,7 +97,7 @@ app.delete('/assets/:id', (req, res) => {
     });
 });
 
-// ✅ ✅ Only this one listen call
+// Only this one listen call
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
