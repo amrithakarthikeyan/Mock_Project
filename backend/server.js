@@ -5,12 +5,14 @@ const app = express();
 const PORT = 3000;
 
 const cors = require('cors');
+const cors = require('cors');
+
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin || origin.endsWith('.app.github.dev')) {
       callback(null, true);
     } else {
-      callback(new Error('Blocked by CORS'));
+      callback(new Error('Not allowed by CORS'));
     }
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
