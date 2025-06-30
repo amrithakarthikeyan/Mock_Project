@@ -1,19 +1,22 @@
 const express = require('express');
-const cors = require('cors');
-const sqlite3 = require('sqlite3').verbose();
 
+const sqlite3 = require('sqlite3').verbose();
 const app = express();
 const PORT = 3000;
 
-// CORS Fix: Allow all origins (for development only)
+const cors = require('cors');
+
 app.use(cors({
-  origin: '*',
+  origin: (origin, callback) => {
+    if (!origin || origin.endsWith('.app.github.dev')) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
-
-// Optional: handle preflight OPTIONS requests
-app.options('*', cors());
 
 app.use(express.json());
 
@@ -36,7 +39,13 @@ app.get('/', (req, res) => {
 // GET all assets
 app.get('/assets', (req, res) => {
   db.all(`SELECT 
-    "Asset-ID", "Asset-Type", "Brand", "Model", "Serial-Number", "Purchase_Date", "Status"
+    "Asset-ID",
+    "Asset-Type",
+    "Brand",
+    "Model",
+    "Serial-Number",
+    "Purchase_Date",
+    "Status"
     FROM assets`, 
     (err, rows) => {
       if (err) return res.status(500).json({ error: err.message });
@@ -47,7 +56,13 @@ app.get('/assets', (req, res) => {
 // GET single asset
 app.get('/assets/:id', (req, res) => {
   db.get(`SELECT 
-    "Asset-ID", "Asset-Type", "Brand", "Model", "Serial-Number", "Purchase_Date", "Status"
+    "Asset-ID",
+    "Asset-Type",
+    "Brand",
+    "Model",
+    "Serial-Number",
+    "Purchase_Date",
+    "Status"
     FROM assets WHERE "Asset-ID" = ?`, 
     [req.params.id], 
     (err, row) => {
@@ -57,7 +72,7 @@ app.get('/assets/:id', (req, res) => {
 });
 
 // ADD asset
-app.post('/assets/:id', (req, res) => {
+app.post('/assets', (req, res) => {
   const { "Asset-Type": assetType, Brand, Model, "Serial-Number": serialNumber, Purchase_Date, Status } = req.body;
   db.run(`INSERT INTO assets (
     "Asset-Type", "Brand", "Model", "Serial-Number", "Purchase_Date", "Status")
@@ -97,7 +112,6 @@ app.delete('/assets/:id', (req, res) => {
     });
 });
 
-// Only this one listen call
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
