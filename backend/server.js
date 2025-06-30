@@ -6,7 +6,13 @@ const app = express();
 const PORT = 3000;
 
 app.use(cors({
-  origin: 'https://opulent-barnacle-q76gw546vqvpfj59-8080.app.github.dev',
+  origin: (origin, callback) => {
+    if (!origin || origin.endsWith('.app.github.dev')) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
