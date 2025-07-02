@@ -51,6 +51,7 @@ form.addEventListener('submit', function (e) {
 
   const method = asset["Asset-ID"] ? 'PUT' : 'POST';
   const url = asset["Asset-ID"] ? `${API_URL}assets/${asset["Asset-ID"]}` : `${API_URL}assets`;
+  console.log(url+ " "+ method);
 
   fetch(url, {
     method,
