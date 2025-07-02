@@ -85,6 +85,7 @@ function editAsset(id) {
         form.elements["Purchase_Date"].value = asset["Purchase_Date"];
         form.elements["Status"].value = asset["Status"];
       }
+      console.log("Asset edited successfully" + `${assetType}, ${Brand}, ${Model}, ${serialNumber}, ${Purchase_Date}, ${Status}`);
     });
 }
 
