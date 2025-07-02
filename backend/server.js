@@ -73,6 +73,7 @@ app.get('/assets/:id', (req, res) => {
 
 // ADD asset
 app.post('/assets', (req, res) => {
+  console.log("Post operation is working")
   const { "Asset-Type": assetType, Brand, Model, "Serial-Number": serialNumber, Purchase_Date, Status } = req.body;
   db.run(`INSERT INTO assets (
     "Asset-Type", "Brand", "Model", "Serial-Number", "Purchase_Date", "Status")
