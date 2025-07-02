@@ -102,6 +102,7 @@ app.put('/assets/:id', (req, res) => {
       if (err) return res.status(500).json({ error: err.message });
       res.json({ updated: this.changes });
     });
+    console.log("Asset edited successfully " + `${assetType}, ${Brand}, ${Model}, ${serialNumber}, ${Purchase_Date}, ${Status}`);
 });
 
 // DELETE asset
@@ -112,6 +113,7 @@ app.delete('/assets/:id', (req, res) => {
       if (err) return res.status(500).json({ error: err.message });
       res.json({ deleted: this.changes });
     });
+    console.log("Asset details deleted");
 });
 
 app.listen(PORT, '0.0.0.0', () => {
