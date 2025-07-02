@@ -23,11 +23,11 @@ app.use(express.json());
 const db = new sqlite3.Database('./database.db');
 //db.run (`DROP TABLE assets`);
 db.run(`CREATE TABLE IF NOT EXISTS assets (
-  "Asset-ID" INTEGER PRIMARY KEY,
+  "Asset-ID" INTEGER PRIMARY KEY NOT NULL,
   "Asset-Type" TEXT NOT NULL,
-  "Brand" TEXT,
-  "Model" TEXT,
-  "Serial-Number" INTEGER,
+  "Brand" TEXT NOT NULL,
+  "Model" TEXT NOT NULL,
+  "Serial-Number" INTEGER NOT NULL UNIQUE,
   "Purchase_Date" TEXT,
   "Status" TEXT
 )`);
@@ -73,15 +73,25 @@ app.get('/assets/:id', (req, res) => {
 
 // ADD asset
 app.post('/assets', (req, res) => {
-  console.log("Post operation is working")
   const { "Asset-Type": assetType, Brand, Model, "Serial-Number": serialNumber, Purchase_Date, Status } = req.body;
-  console.log(`${assetType}, ${Brand}, ${Model}, ${serialNumber}, ${Purchase_Date}, ${Status}`);
+
+  // Basic validation for missing fields
+  if (!assetType || !Brand || !Model || !serialNumber || !Purchase_Date || !Status) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+
   db.run(`INSERT INTO assets (
     "Asset-Type", "Brand", "Model", "Serial-Number", "Purchase_Date", "Status")
     VALUES (?, ?, ?, ?, ?, ?)`,
     [assetType, Brand, Model, serialNumber, Purchase_Date, Status],
     function(err) {
-      if (err) return res.status(500).json({ error: err.message });
+      if (err) {
+        // Handle unique constraint error for Serial-Number
+        if (err.message.includes('UNIQUE')) {
+          return res.status(400).json({ error: 'Serial Number must be unique' });
+        }
+        return res.status(500).json({ error: err.message });
+      }
       res.json({ id: this.lastID });
     });
 });
