@@ -1,20 +1,23 @@
+DROP TABLE IF EXISTS Assets;
+DROP TABLE IF EXISTS Employees;
+
 CREATE TABLE "Assets" (
-	"Asset-ID"	INTEGER,
-	"Asset-Type"	TEXT NOT NULL,
-	"Brand"	TEXT,
-	"Model"	TEXT,
-	"Serial-Number"	INTEGER,
-	"Purchase_Date"	TEXT,
-	"Status"	TEXT,
-	PRIMARY KEY("Asset-ID")
+  "Asset-ID" INTEGER,
+  "Asset-Type" TEXT NOT NULL,
+  "Brand" TEXT,
+  "Model" TEXT,
+  "Serial-Number" INTEGER,
+  "Purchase_Date" TEXT,
+  "Status" TEXT,
+  PRIMARY KEY("Asset-ID")
 );
 
 CREATE TABLE "Employees" (
-	"Employee-ID"	INTEGER NOT NULL,
-	"Name"	TEXT NOT NULL,
-	"Department"	INTEGER,
-	"Email"	TEXT UNIQUE,
-	PRIMARY KEY("Employee-ID")
+  "Employee-ID" INTEGER NOT NULL,
+  "Name" TEXT NOT NULL,
+  "Department" INTEGER,
+  "Email" TEXT UNIQUE,
+  PRIMARY KEY("Employee-ID")
 );
 
 INSERT INTO Employees ("Employee-ID", Name, Department, Email) VALUES
@@ -27,4 +30,3 @@ INSERT INTO Employees ("Employee-ID", Name, Department, Email) VALUES
 (8002, 'Kenneth Bass', 108, 'bwarren@hotmail.com'),
 (2440, 'Michael Gutierrez', 104, 'enichols@lee.com'),
 (2039, 'Amber Smith', 102, 'callahanjennifer@smith.com');
-
